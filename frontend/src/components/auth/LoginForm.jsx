@@ -54,7 +54,7 @@ export default function LoginForm() {
     return (
         <div className="flex flex-col lg:flex-row h-screen w-full bg-gradient-to-br from-blue-50 to-blue-100 items-center justify-center px-6 gap-8">
             <div className="bg-[#002B5B] text-white p-10 rounded-2xl w-full max-w-md h-[520px] flex flex-col items-center justify-center text-left">
-                <img src={logo} alt="DreamDwell Logo" className="w-28 animate-bounce mb-4" />
+                <img src={logo} alt="DreamDwell Logo" className="w-28 animate-bounce-slow mb-4" />
                 <h1 className="text-3xl font-bold mb-2">Welcome Back!</h1>
                 <p className="text-lg">Access your DreamDwell account</p>
             </div>
