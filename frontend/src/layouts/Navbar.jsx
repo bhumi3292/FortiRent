@@ -111,31 +111,31 @@ export default function Navbar() {
 
     const navLinkClass = (path) => {
         const isActive = location.pathname === path;
-        return `text-base font-medium transition-colors hover:text-secondary ${isActive ? "text-secondary font-semibold" : "text-gray-600"
+        return `text-sm font-medium transition-all px-4 py-2 rounded-full ${isActive ? "bg-primary text-white shadow-md" : "text-gray-600 hover:bg-gray-100 hover:text-primary"
             }`;
     };
 
-    // Dynamic navbar classes
-    const navbarClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-            ? "bg-white shadow-md py-3"
-            : "bg-white/95 backdrop-blur-sm shadow-sm py-4"
+    // Dynamic floating navbar classes
+    const navbarClasses = `fixed top-4 left-0 right-0 z-50 transition-all duration-300 mx-auto max-w-6xl rounded-2xl ${scrolled
+        ? "bg-white/90 backdrop-blur-md shadow-lg border border-gray-200/50 py-2 top-2"
+        : "bg-white/80 backdrop-blur-sm shadow-sm py-3 border border-transparent"
         }`;
 
     return (
         <nav className={navbarClasses}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="px-6">
                 <div className="flex justify-between items-center">
 
                     {/* Logo */}
-                    <Link to="/" className="flex items-center gap-2" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
-                        <div className="bg-primary rounded-lg p-1.5 text-white">
-                            <Home size={24} strokeWidth={2.5} />
+                    <Link to="/" className="flex items-center gap-2 group" onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); }}>
+                        <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-2 text-white shadow-lg group-hover:shadow-primary/30 transition-all">
+                            <Home size={20} className="stroke-[2.5px]" />
                         </div>
-                        <span className="text-2xl font-bold text-primary font-heading tracking-tight">FortiRent</span>
+                        <span className="text-xl font-bold text-gray-800 font-heading tracking-tight group-hover:text-primary transition-colors">FortiRent</span>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center gap-1 bg-gray-100/50 p-1.5 rounded-full border border-gray-100">
                         <Link to="/" className={navLinkClass("/")}>Home</Link>
 
                         <a href="/property" onClick={handlePropertyClick} className={navLinkClass("/property")}>

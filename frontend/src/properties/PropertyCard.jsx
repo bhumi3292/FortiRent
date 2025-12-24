@@ -144,69 +144,90 @@ export default function PropertyCard({ property, currentUserId, onUpdate, onDele
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer relative group border border-gray-100 h-full flex flex-col" onClick={handleCardClick}>
-            <div className="relative">
-                <div ref={mediaGalleryRef} className="w-full h-64 overflow-x-auto scroll-smooth flex snap-x snap-mandatory scrollbar-hide">
+        <div
+            className="group relative bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer h-[420px] w-full flex flex-col border border-gray-100"
+            onClick={handleCardClick}
+        >
+            {/* Image Container - Takes up more vertical space now */}
+            <div className="relative h-[65%] overflow-hidden">
+                <div ref={mediaGalleryRef} className="w-full h-full overflow-x-auto scroll-smooth flex snap-x snap-mandatory scrollbar-hide">
                     {mediaUrls.map((media, index) => (
-                        <div key={index} className="w-full h-64 flex-shrink-0 snap-center relative">
+                        <div key={index} className="w-full h-full flex-shrink-0 snap-center relative">
                             {media.type === 'video' ? (
                                 <video src={media.url} controls className="w-full h-full object-cover" />
                             ) : (
-                                <img src={media.url} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                <img src={media.url} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                            {/* Gradient Overlay for Text Readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
                         </div>
                     ))}
                 </div>
+
+                {/* Overlaid Title & Price */}
+                <div className="absolute bottom-4 left-4 right-4 text-white z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <div className="flex justify-between items-end">
+                        <div className="flex-1 pr-2">
+                            <h3 className="text-xl font-bold font-heading leading-tight mb-1 text-white drop-shadow-md">{property.title}</h3>
+                            <p className="text-gray-300 text-sm flex items-center truncate">
+                                <MapPin size={14} className="mr-1 flex-shrink-0 text-secondary" />
+                                {property.location}
+                            </p>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-2xl font-bold text-secondary drop-shadow-md">
+                                Rs. {(property.price / 1000).toFixed(1)}k
+                            </div>
+                            <span className="text-xs text-gray-300 font-medium">/month</span>
+                        </div>
+                    </div>
+                </div>
                 {mediaUrls.length > 1 && (
                     <>
-                        <button onClick={prevMedia} className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/90 backdrop-blur-md rounded-full p-2 hover:bg-white text-primary z-20 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
-                            <ChevronLeft size={18} />
+                        <button onClick={prevMedia} className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/40 rounded-full p-2 text-white z-20 opacity-0 group-hover:opacity-100 transition-all">
+                            <ChevronLeft size={20} />
                         </button>
-                        <button onClick={nextMedia} className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/90 backdrop-blur-md rounded-full p-2 hover:bg-white text-primary z-20 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
-                            <ChevronRight size={18} />
+                        <button onClick={nextMedia} className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/40 rounded-full p-2 text-white z-20 opacity-0 group-hover:opacity-100 transition-all">
+                            <ChevronRight size={20} />
                         </button>
-                        <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold py-1 px-2.5 rounded-full z-20 tracking-wide border border-white/10">
-                            {currentMediaIndex + 1} / {mediaUrls.length}
+                        <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white text-[10px] font-bold py-1 px-3 rounded-full z-20 border border-white/20">
+                            {currentMediaIndex + 1}/{mediaUrls.length}
                         </div>
                     </>
                 )}
-                <div className="absolute top-3 right-3 z-30 transform transition-transform hover:scale-110 drop-shadow-md">
+
+                <div className="absolute top-4 right-4 z-30">
                     <HeartIconComponent propertyId={property._id} />
-                </div>
-                <div className="absolute top-3 left-3 z-30">
-                    <div className="bg-white/90 backdrop-blur-sm text-secondary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm border border-white/20">
-                        For Rent
-                    </div>
                 </div>
             </div>
 
-            <div className="p-6 flex flex-col flex-grow">
-                <div className="mb-2">
-                    <h3 className="text-xl font-bold text-text-main font-heading line-clamp-1 group-hover:text-primary transition-colors">{property.title}</h3>
-                </div>
+            {/* Bottom Details Section */}
+            <div className="p-5 bg-white flex flex-col justify-between flex-grow relative">
 
-                <p className="text-sm text-text-muted mb-4 flex items-center font-body truncate">
-                    <MapPin size={16} className="mr-1.5 text-primary flex-shrink-0" />{property.location}
-                </p>
-
-                <div className="flex items-baseline mb-5 text-gray-900">
-                    <span className="text-2xl font-bold text-primary font-heading">Rs. {property.price.toLocaleString()}</span>
-                    <span className="text-sm text-text-muted font-medium ml-1">/ month</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100 mt-auto">
-                    <div className="flex items-center text-sm text-text-main bg-gray-50 p-2 rounded-lg justify-center">
-                        <Bed size={18} className="mr-2 text-primary" />
-                        <span className="font-bold mr-1">{property.bedrooms}</span> <span className="text-text-muted">Beds</span>
-                    </div>
-                    <div className="flex items-center text-sm text-text-main bg-gray-50 p-2 rounded-lg justify-center">
-                        <Bath size={18} className="mr-2 text-primary" />
-                        <span className="font-bold mr-1">{property.bathrooms}</span> <span className="text-text-muted">Baths</span>
+                {/* Features Row */}
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex gap-4">
+                        <div className="flex items-center gap-2 group/icon">
+                            <div className="p-2 rounded-full bg-blue-50 text-blue-500 group-hover/icon:bg-blue-500 group-hover/icon:text-white transition-colors">
+                                <Bed size={16} />
+                            </div>
+                            <span className="text-sm font-bold text-gray-700">{property.bedrooms} <span className="text-gray-400 font-normal hidden sm:inline">Beds</span></span>
+                        </div>
+                        <div className="flex items-center gap-2 group/icon">
+                            <div className="p-2 rounded-full bg-teal-50 text-teal-500 group-hover/icon:bg-teal-500 group-hover/icon:text-white transition-colors">
+                                <Bath size={16} />
+                            </div>
+                            <span className="text-sm font-bold text-gray-700">{property.bathrooms} <span className="text-gray-400 font-normal hidden sm:inline">Baths</span></span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Description snippet could go here if space permits, but card looks cleaner without it for now given the flex-grow structure */}
+                {/* View Details Button (Appears on Hover) */}
+                <div className="w-full">
+                    <button className="w-full py-3 rounded-xl bg-gray-50 text-gray-800 font-bold text-sm group-hover:bg-primary group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                        View Details <ChevronRight size={16} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </button>
+                </div>
             </div>
 
             {/* CRITICAL: The buttons below will only render if 'isOwner' is true. */}
