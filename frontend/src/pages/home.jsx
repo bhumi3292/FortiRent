@@ -59,17 +59,18 @@ export default function Home() {
             </header>
 
             {/* Hero Section */}
-            <section className="relative pt-[120px] pb-20 md:pt-[180px] md:pb-32 overflow-hidden">
+            {/* Hero Section */}
+            <section className="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
                 {/* Background Blob/Shape */}
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 -z-10 opacity-60"></div>
-                <div className="absolute top-40 left-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-3xl -translate-x-1/3 -z-10 opacity-50"></div>
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4 -z-10 opacity-70"></div>
+                <div className="absolute top-40 left-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[100px] -translate-x-1/3 -z-10 opacity-60"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
 
                     {/* Hero Content */}
                     <div className="text-center lg:text-left animate-fade-in-up">
-                        <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-user font-semibold text-sm mb-6 border border-blue-100">
-                            <span className="text-secondary font-bold tracking-wider uppercase text-xs">#1 Trusted Rental Platform</span>
+                        <div className="inline-block px-4 py-1.5 rounded-full bg-white text-primary font-semibold text-sm mb-6 border border-gray-100 shadow-sm">
+                            <span className="text-secondary font-bold tracking-wider uppercase text-xs">✨ #1 Trusted Rental Platform</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight font-heading">
                             Find your <span className="text-primary relative inline-block">perfect
@@ -162,7 +163,7 @@ export default function Home() {
                         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
 
                         {/* Floating Card */}
-                        <div className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl animate-bounce-slow border border-gray-100 z-20">
+                        <div className="absolute -top-6 -right-6 p-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl animate-bounce-slow border border-white/40 z-20">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
