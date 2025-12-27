@@ -305,6 +305,11 @@ exports.changePassword = async (req, res) => {
 };
 
 // ⭐ NEW: Update User Profile (for logged-in users) ⭐
+/**
+ * Update user profile details.
+ * @route PUT /api/auth/update-profile
+ * @access Private
+ */
 exports.updateProfile = async (req, res) => {
     // `req.user` is populated by the `authenticateUser` middleware
     const userId = req.user._id;
