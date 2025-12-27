@@ -118,6 +118,11 @@ exports.getOneProperty = async (req, res) => {
 };
 
 // --- UPDATE PROPERTY --- (Improved error handling for file cleanup and validation)
+/**
+ * Update an existing property.
+ * @route PUT /api/properties/:id
+ * @access Private (Landlord/Owner)
+ */
 exports.updateProperty = async (req, res) => {
     console.log(req.body)
     const newlyUploadedFilePaths = []; // Track files uploaded during this request for potential cleanup
