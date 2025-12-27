@@ -15,3 +15,8 @@ All notable changes to the **FortiRent** project will be documented in this file
 - Rebranded application from **DreamDwell** to **FortiRent**.
 - Renamed packages to `fortirent-backend` and `fortirent-frontend`.
 - Updated all API responses and Email templates to reflect new branding.
+
+### Documentation
+- Created `backend/README.md` with API usage instructions.
+- Updated `frontend/README.md` with setup guide.
+- Added JSDoc annotations to all Auth and Property controllers.
