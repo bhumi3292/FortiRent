@@ -32,6 +32,11 @@ const deleteFiles = async (filePaths) => {
 };
 
 // --- CREATE PROPERTY ---
+/**
+ * Create a new property listing.
+ * @route POST /api/properties
+ * @access Private (Landlord)
+ */
 exports.createProperty = async (req, res) => {
     // Collect paths of newly uploaded files so they can be cleaned up on error
     const uploadedFilePaths = [];
@@ -187,7 +192,7 @@ exports.updateProperty = async (req, res) => {
 
         const updatedProperty = await Property.findByIdAndUpdate(
             req.params.id,
-             updateData,
+            updateData,
             { new: true, runValidators: true }
         );
 
