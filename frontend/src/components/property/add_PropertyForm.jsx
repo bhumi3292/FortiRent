@@ -148,6 +148,11 @@ export default function AddPropertyForm() {
             categoryId: Yup.string().required('Category is required'),
         }),
         onSubmit: (values, { resetForm }) => {
+            if (images.length === 0) {
+                toast.error("Please upload at least one image.");
+                return;
+            }
+
             const formData = new FormData();
             Object.keys(values).forEach(key => formData.append(key, values[key]));
             images.forEach((file) => formData.append('images', file));
@@ -258,7 +263,18 @@ export default function AddPropertyForm() {
             </div>
 
             <div className="bg-white p-8 shadow-xl rounded-3xl border border-gray-100">
-                <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
+                <form onSubmit={(e) => {
+                    // Prevent default form submission behavior (reloading or implicit submit)
+                    e.preventDefault();
+                    // Only allow actual submission to backend if we are on the final step (Step 3)
+                    if (step === 3) {
+                        formik.handleSubmit(e);
+                    } else {
+                        // Optional: If user presses Enter on fields, we could trigger nextStep() here
+                        // For now, simpler to just block the accidental submission
+                        console.log("Submit blocked on step:", step);
+                    }
+                }} className="flex flex-col gap-6">
 
                     {/* Step 1: Basics */}
                     {step === 1 && (
@@ -432,7 +448,11 @@ export default function AddPropertyForm() {
                         )}
 
                         {step < 3 ? (
-                            <button type="button" onClick={nextStep} className="px-8 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
+                            <button
+                                type="button"
+                                onClick={(e) => { e.preventDefault(); nextStep(); }}
+                                className="px-8 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover flex items-center gap-2 shadow-lg shadow-primary/20 transition-all"
+                            >
                                 Next Step <ChevronRight size={18} />
                             </button>
                         ) : (
