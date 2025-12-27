@@ -56,6 +56,12 @@ exports.registerUser = async (req, res) => {
 };
 
 // Login User (existing)
+/**
+ * Authenticate user and get token.
+ * Checks for password expiry (90 days).
+ * @route POST /api/auth/login
+ * @access Public
+ */
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
