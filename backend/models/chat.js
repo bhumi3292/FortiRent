@@ -1,4 +1,4 @@
-// dreamdwell_backend/models/chat.js
+// backend/models/chat.js
 const mongoose = require('mongoose');
 
 // Define the schema for individual messages within a chat
@@ -45,7 +45,7 @@ const chatSchema = new mongoose.Schema(
             type: Date,
             default: Date.now
         },
-        messages: [messageSubSchema] 
+        messages: [messageSubSchema]
     },
     {
         timestamps: true // This provides `createdAt` and `updatedAt` for the chat document itself

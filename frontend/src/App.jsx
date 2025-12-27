@@ -32,13 +32,13 @@ function App() {
                         <div className="flex-grow"> {/* Allows content to push footer down */}
                             <AppRoutes />
                         </div>
-                        <Footer/>
+                        <Footer />
                     </div>
 
                     {/* Floating Action Button (FAB) for Chatbot */}
                     <button
                         onClick={toggleChatbot}
-                        className="fixed bottom-4 right-4 z-[1001] bg-[#002B5B] text-white p-4 rounded-full shadow-lg hover:bg-[#002244] transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:ring-offset-2"
+                        className="fixed bottom-4 right-4 z-[1001] bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-hover transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                         aria-label={showChatbot ? "Close chatbot" : "Open chatbot"}
                     >
                         <MessageSquare size={28} />

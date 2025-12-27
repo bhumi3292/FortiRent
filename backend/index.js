@@ -1,4 +1,4 @@
-// dreamdwell_backend/index.js
+// backend/index.js
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -9,13 +9,8 @@ const multer = require("multer");
 const connectDB = require("./config/db");
 const ApiError = require("./utils/api_error");
 
+const app = express();
 
-
-const app = express(); // Initialize Express app
-
-
-
-// ========== Middleware ==========
 app.use(cors({
     origin: process.env.FRONTEND_URL || "*",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
@@ -26,16 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ========== Import & Use API Routes ==========
-
+// API Routes
 const authRoutes = require("./routes/authRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const cartRoutes = require("./routes/cartRoute");
-
-// --- IMPORTANT: Corrected Payment Route Import ---
 const paymentRoutes = require('./routes/paymentRoute');
-
 const calendarRoutes = require('./routes/calendarRoutes');
 const chatbotRoutes = require('./routes/chatbotRoute');
 const chatRoutes = require('./routes/chatRoute');
@@ -44,23 +35,17 @@ app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/cart", cartRoutes);
-
-// --- IMPORTANT: Corrected Payment Route Usage ---
 app.use('/api/payments', paymentRoutes);
-
-
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/chats', chatRoutes);
 
 app.get("/", (req, res) => {
-    res.status(200).send("DreamDwell backend running successfully!");
+    res.status(200).send("FortiRent backend running successfully!");
 });
 
-// ========== Global Error Handler ==========
-// ... (rest of your error handler code, no changes needed here)
+// Global Error Handler
 app.use((err, req, res, next) => {
-    console.error("Unhandled Error Caught by Global Handler:");
     console.error(err);
 
     if (err instanceof ApiError) {
@@ -89,7 +74,7 @@ app.use((err, req, res, next) => {
         } else if (err.code === "LIMIT_FILE_COUNT") {
             message = "Too many files uploaded.";
         } else if (err.code === "LIMIT_UNEXPECTED_FILE") {
-            message = `Unexpected file field: ${err.field}. Please check field names for file uploads (e.g., use 'images' and 'videos').`;
+            message = `Unexpected file field: ${err.field}.`;
         }
         return res.status(400).json({ success: false, message: message });
     }
@@ -112,7 +97,7 @@ app.use((err, req, res, next) => {
 
 module.exports = app;
 
-// ========== Conditional Server Start & Socket.IO Setup ==========
+// Server Start & Socket.IO
 if (require.main === module) {
     const http = require("http");
     const { Server } = require("socket.io");
@@ -128,7 +113,6 @@ if (require.main === module) {
         },
     });
 
-    // ========== Connect DB (for actual server run) ==========
     connectDB()
         .then(() => console.log("MongoDB connected successfully!"))
         .catch((err) => {
@@ -136,7 +120,6 @@ if (require.main === module) {
             process.exit(1);
         });
 
-    // ========== Socket.IO Connection Handling ==========
     io.on("connection", (socket) => {
         console.log("A user connected:", socket.id);
 

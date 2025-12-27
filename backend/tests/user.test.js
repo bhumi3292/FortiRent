@@ -21,19 +21,19 @@ let testCategoryIdForCart;
 let landlordTokenForCartTests;
 
 
-// --- Auth, Category, Property Basic Tests (using dreamdwell_test_auth) ---
+// --- Auth, Category, Property Basic Tests (using fortirent_test_auth) ---
 describe("Auth, Category, and Basic Property API Tests", () => {
     // beforeAll for this specific test suite (Auth, Category, Property Basic)
     beforeAll(async () => {
-        process.env.MONGO_URI = "mongodb://localhost:27017/dreamdwell_test_auth";
+        process.env.MONGO_URI = "mongodb://localhost:27017/fortirent_test_auth";
 
         // Ensure disconnection from any previous connection if it's not the correct DB
-        if (mongoose.connection.readyState === 1 && mongoose.connection.name !== 'dreamdwell_test_auth') {
+        if (mongoose.connection.readyState === 1 && mongoose.connection.name !== 'fortirent_test_auth') {
             await mongoose.disconnect();
             console.log("Disconnected from previous non-auth DB connection.");
         }
         // Connect only if not already connected to the correct DB
-        if (mongoose.connection.readyState === 0 || mongoose.connection.name !== 'dreamdwell_test_auth') {
+        if (mongoose.connection.readyState === 0 || mongoose.connection.name !== 'fortirent_test_auth') {
             await mongoose.connect(process.env.MONGO_URI);
             console.log(`Connected to Auth DB: ${mongoose.connection.name}`);
         }
@@ -76,7 +76,7 @@ describe("Auth, Category, and Basic Property API Tests", () => {
 
     // afterAll for this specific test suite
     afterAll(async () => {
-        if (mongoose.connection.readyState !== 0 && mongoose.connection.name === 'dreamdwell_test_auth') {
+        if (mongoose.connection.readyState !== 0 && mongoose.connection.name === 'fortirent_test_auth') {
             console.log("Disconnecting from Auth MongoDB...");
             await mongoose.disconnect();
         }
@@ -342,19 +342,19 @@ describe("Auth, Category, and Basic Property API Tests", () => {
     });
 });
 
-// --- Cart API Tests (using dreamdwell_test_cart) ---
+// --- Cart API Tests (using fortirent_test_cart) ---
 describe("Cart API Tests", () => {
     // beforeAll for Cart API tests
     beforeAll(async () => {
-        process.env.MONGO_URI = "mongodb://localhost:27017/dreamdwell_test_cart";
+        process.env.MONGO_URI = "mongodb://localhost:27017/fortirent_test_cart";
 
         // Ensure disconnection from any previous connection if it's not the correct DB
-        if (mongoose.connection.readyState === 1 && mongoose.connection.name !== 'dreamdwell_test_cart') {
+        if (mongoose.connection.readyState === 1 && mongoose.connection.name !== 'fortirent_test_cart') {
             await mongoose.disconnect();
             console.log("Disconnected from previous non-cart DB connection.");
         }
         // Connect only if not already connected to the correct DB
-        if (mongoose.connection.readyState === 0 || mongoose.connection.name !== 'dreamdwell_test_cart') {
+        if (mongoose.connection.readyState === 0 || mongoose.connection.name !== 'fortirent_test_cart') {
             await mongoose.connect(process.env.MONGO_URI);
             console.log(`Connected to Cart DB: ${mongoose.connection.name}`);
         }
@@ -433,7 +433,7 @@ describe("Cart API Tests", () => {
 
     // afterAll for Cart API tests
     afterAll(async () => {
-        if (mongoose.connection.readyState !== 0 && mongoose.connection.name === 'dreamdwell_test_cart') {
+        if (mongoose.connection.readyState !== 0 && mongoose.connection.name === 'fortirent_test_cart') {
             console.log("Disconnecting from Cart MongoDB...");
             await mongoose.disconnect();
         }

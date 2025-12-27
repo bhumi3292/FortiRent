@@ -147,16 +147,16 @@ exports.sendPasswordResetLink = async (req, res) => {
         // Ensure FRONTEND_URL is set in your .env
         const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
-        const subject = 'DreamDwell Password Reset Request';
+        const subject = 'FortiRent Password Reset Request';
         const text = `You requested a password reset. Use this link to reset your password: ${resetUrl}`;
         const html = `
             <p>Hello ${user.fullName},</p>
-            <p>You recently requested to reset your password for your DreamDwell account.</p>
+            <p>You recently requested to reset your password for your FortiRent account.</p>
             <p>Click the link below to reset your password:</p>
             <p><a href="${resetUrl}" style="background-color: #002B5B; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reset Your Password</a></p>
             <p>This link is valid for <b>1 hour</b>.</p>
             <p>If you did not request this, please ignore this email.</p>
-            <p>Thank you,<br/>The DreamDwell Team</p>
+            <p>Thank you,<br/>The FortiRent Team</p>
         `;
 
         await sendEmail(user.email, subject, text, html);

@@ -89,16 +89,13 @@ export default function PropertyCard({ property, currentUserId, onUpdate, onDele
         return <div className="bg-red-50 text-state-error p-4 rounded-xl shadow border border-red-100">Invalid property data.</div>;
     }
 
-    // The logic to determine if the current user owns this property
+    // Check if current user is the owner
     const isOwner = currentUserId && property.landlord?._id === currentUserId;
 
-    // --- COMBINE IMAGES AND VIDEOS FOR CAROUSEL ---
     const mediaUrls = property.images?.map(img => ({ type: 'image', url: `${API_BASE_URL}/${img}` }))
         .concat(property.videos?.map(vid => ({ type: 'video', url: `${API_BASE_URL}/${vid}` }))) || [{ type: 'image', url: 'https://placehold.co/300x200?text=No+Media' }];
 
-    // --- MODIFIED handleCardClick ---
     const handleCardClick = () => {
-        // Pass the current property and the currently visible media index to the detail page
         navigate(`/property/${property._id}`, {
             state: {
                 property: property,

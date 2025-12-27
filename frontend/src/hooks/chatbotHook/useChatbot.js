@@ -15,7 +15,7 @@ const formatHistoryForApi = (messages) => {
 
 export const useChatbot = () => {
     const [messages, setMessages] = useState([
-        { text: 'Namaste! I\'m DreamBot, your friendly guide at DreamDwell. How can I help you find your perfect space or assist with your property today?', sender: 'bot' },
+        { text: 'Namaste! I\'m FortiBot, your friendly guide at FortiRent. How can I help you find your perfect space or assist with your property today?', sender: 'bot' },
     ]);
 
     const mutation = useMutation({
@@ -29,7 +29,7 @@ export const useChatbot = () => {
                 setMessages(prev => [...prev, botMessage]);
             } else {
                 toast.error("Received an empty response from the bot.");
-                setMessages(prev => [...prev, { text: "DreamBot received an empty response. Please try again.", sender: 'bot' }]);
+                setMessages(prev => [...prev, { text: "FortiBot received an empty response. Please try again.", sender: 'bot' }]);
             }
         },
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import navigation hook
-import Navbar from "../layouts/navbar.jsx";
+import Navbar from "../layouts/Navbar.jsx";
 import "../styles/agreement.css"; // Import styles
 
 const Agreement = () => {
@@ -25,14 +25,14 @@ const Agreement = () => {
             <div className="agreement-container">
                 <h3>Terms and Conditions</h3>
                 <div className="terms-box">
-                    <p>By signing up for DreamDwell, you agree to the following terms:</p>
+                    <p>By signing up for FortiRent, you agree to the following terms:</p>
                     <ul>
                         <li>You must provide accurate account information.</li>
-                        <li>DreamDwell is not liable for rental disputes.</li>
+                        <li>FortiRent is not liable for rental disputes.</li>
                         <li>All transactions are final and processed securely.</li>
                         <li>Misuse of the platform may result in account suspension.</li>
                         <li>We respect your privacy and protect your data.</li>
-                        <li>DreamDwell reserves the right to modify these terms.</li>
+                        <li>FortiRent reserves the right to modify these terms.</li>
                     </ul>
                 </div>
                 <div className="checkbox-container">
@@ -43,7 +43,7 @@ const Agreement = () => {
                         onChange={handleCheckboxChange}
                     />
                     <label htmlFor="agree">
-                        I have read and agree to the Terms and Conditions of DreamDwell.
+                        I have read and agree to the Terms and Conditions of FortiRent.
                     </label>
                 </div>
                 <button className="agree-button" onClick={handleAgreeAndContinue}>

@@ -1,4 +1,4 @@
-// dreamdwell_backend/controllers/chat.controller.js
+// backend/controllers/chatController.js
 const Chat = require('../models/chat');
 const User = require('../models/User');
 const Property = require('../models/Property');

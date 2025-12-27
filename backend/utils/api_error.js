@@ -1,4 +1,4 @@
-// dreamdwell_backend/utils/api_error.js
+// backend/utils/api_error.js
 
 class ApiError extends Error {
     constructor(

@@ -5,11 +5,11 @@ require("dotenv").config();
 const connectDB = async (testDbUri = null) => {
     let mongoURI;
     if (process.env.NODE_ENV === "test") {
-        mongoURI = testDbUri || process.env.MONGO_URI_TEST || "mongodb://localhost:27017/dreamdwell_test_db";
+        mongoURI = testDbUri || process.env.MONGO_URI_TEST || "mongodb://localhost:27017/fortirent_test_db";
         console.log(`Attempting to connect to test MongoDB: ${mongoURI}`);
     } else {
         // For development or production, use the main MONGO_URI
-        mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/dreamdwell_dev_db";
+        mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/fortirent_dev_db";
         console.log(`Attempting to connect to MongoDB: ${mongoURI}`);
     }
 

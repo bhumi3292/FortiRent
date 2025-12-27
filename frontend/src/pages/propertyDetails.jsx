@@ -76,13 +76,12 @@ export default function PropertyDetail() {
         ];
     }, [property]);
 
-    // Fetch property details if not already passed via location state
     useEffect(() => {
         if (!property && id) {
             getOnePropertyApi(id).then(res => {
                 setProperty(res.data.data);
                 setLoading(false);
-                setCurrentMediaIndex(0); // Reset media index on new property load
+                setCurrentMediaIndex(0);
             }).catch(() => {
                 setError('Failed to load property.');
                 setLoading(false);
@@ -90,7 +89,6 @@ export default function PropertyDetail() {
         }
     }, [id, property]);
 
-    // Check if property is liked by the current user
     useEffect(() => {
         if (isAuthenticated && property?._id) {
             getCartApi().then(res => {
@@ -105,7 +103,6 @@ export default function PropertyDetail() {
         }
     }, [property, isAuthenticated]);
 
-    // Toggle property like status (add/remove from cart)
     const handleToggleLike = () => {
         if (!isAuthenticated) return toast.warn('Login to save properties.');
         if (!property?._id) return toast.error('Invalid property ID.');
@@ -117,7 +114,6 @@ export default function PropertyDetail() {
         }).catch(err => toast.error(err.response?.data?.message || 'Action failed.'));
     };
 
-    // Open Gmail compose window
     const openGmailCompose = (email) => {
         if (email) {
             const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
@@ -128,16 +124,14 @@ export default function PropertyDetail() {
     };
 
     const handleEsewaPayment = () => {
-        // setIsProcessing(true)
-
-        const transaction_uuid = uuidv4(); // or use uuid v4 if required
+        const transaction_uuid = uuidv4();
         console.log(transaction_uuid)
         const product_code = "EPAYTEST"
-        const total_amount = property?.price.toFixed(2) // You must match this exactly as in the string
+        const total_amount = property?.price.toFixed(2)
         const signed_field_names = "total_amount,transaction_uuid,product_code"
 
         const signingString = `total_amount=${total_amount},transaction_uuid=${transaction_uuid},product_code=${product_code}`
-        const secret = "8gBm/:&EnhH.1/q" // ← UAT secret key from eSewa. DO NOT USE IN PRODUCTION FRONTEND.
+        const secret = "8gBm/:&EnhH.1/q"
 
         const signature = CryptoJS.HmacSHA256(signingString, secret).toString(CryptoJS.enc.Base64)
 
@@ -171,7 +165,6 @@ export default function PropertyDetail() {
         form.submit()
     }
 
-    // Handle payment
     const handlePayment = () => {
         setPaymentModel(true);
 
@@ -194,21 +187,18 @@ export default function PropertyDetail() {
         }
     };
 
-    // New handler for WhatsApp chat
     const handleWhatsAppChat = (phoneNumber) => {
         if (!phoneNumber) {
             toast.error('Landlord phone number not available for WhatsApp chat.');
             return;
         }
 
-        const whatsappUrl = `https://web.whatsapp.com/send?phone=${cleanedPhoneNumber}`;
+        const whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}`;
         window.open(whatsappUrl, '_blank');
     };
 
-    // Check if a URL points to a video file
     const isVideo = url => /\.(mp4|webm|ogg|mov)$/i.test(url);
 
-    // Navigation for media gallery
     const nextMedia = () => {
         setCurrentMediaIndex(prevIndex => Math.min(prevIndex + 1, allMedia.length - 1));
     };
@@ -218,8 +208,6 @@ export default function PropertyDetail() {
     };
 
     const mainMedia = allMedia[currentMediaIndex] || null;
-
-    // ... (previous logic stays similar, just Layout changes below)
 
     // Simple Tab State
     const [activeTab, setActiveTab] = useState('description');

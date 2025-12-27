@@ -59,15 +59,12 @@ export default function Home() {
             </header>
 
             {/* Hero Section */}
-            {/* Hero Section */}
             <section className="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
-                {/* Background Blob/Shape */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4 -z-10 opacity-70"></div>
                 <div className="absolute top-40 left-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[100px] -translate-x-1/3 -z-10 opacity-60"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
 
-                    {/* Hero Content */}
                     <div className="text-center lg:text-left animate-fade-in-up">
                         <div className="inline-block px-4 py-1.5 rounded-full bg-white text-primary font-semibold text-sm mb-6 border border-gray-100 shadow-sm">
                             <span className="text-secondary font-bold tracking-wider uppercase text-xs">✨ #1 Trusted Rental Platform</span>
@@ -83,7 +80,6 @@ export default function Home() {
                             Discover verified listings with transparent pricing and secure payments. Your next home is just a click away.
                         </p>
 
-                        {/* Search Bar */}
                         <form onSubmit={handleSearch} className="mb-8 max-w-md mx-auto lg:mx-0 relative flex items-center shadow-lg shadow-gray-200/50 rounded-2xl overflow-hidden border border-gray-100 bg-white p-1">
                             <Search className="absolute left-4 text-gray-400" size={20} />
                             <input
@@ -98,7 +94,6 @@ export default function Home() {
                             </button>
                         </form>
 
-                        {/* Validation: Call-to-action buttons: Explore, Login, Register */}
                         <div className="flex flex-wrap gap-4 justify-center lg:justify-start items-center">
                             <Link
                                 to="/property"
@@ -139,13 +134,10 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Hero Image/Illustration */}
                     <div className="relative hidden lg:block animate-fade-in-up-delay-200">
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary/20 border-[6px] border-white z-10">
-                            {/* Main Hero Image */}
                             <img src={heroImage || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop"} alt="Modern Apartment" className="w-full h-full object-cover aspect-[4/3] transform hover:scale-105 transition-transform duration-700" />
 
-                            {/* Overlay Card */}
                             <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-white/50 flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                                     <MapPin size={24} />
@@ -158,11 +150,9 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* Decorative Elements */}
                         <div className="absolute -top-10 -right-10 w-32 h-32 bg-secondary/20 rounded-full blur-xl animate-bounce-slow"></div>
                         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
 
-                        {/* Floating Card */}
                         <div className="absolute -top-6 -right-6 p-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl animate-bounce-slow border border-white/40 z-20">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
@@ -178,7 +168,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Featured Properties Section - "New Layout Style" (Asymmetric Grid) */}
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
@@ -198,15 +187,8 @@ export default function Home() {
 
                     {properties.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {/* Feature the first property as a large card if screen is large enough, 
-                                but in a 3-col grid they might just be cards. 
-                                Let's do an "Asymmetric" look: If there are 3 items, maybe 1 large on left, 2 stacked on right?
-                                Actually, standard grid with varying sizes is complex to implement with a card component that has fixed internal layout.
-                                Let's stick to a clean Grid but with more generous spacing and better card visuals (shadows).
-                                Or, I can manually layout the first 3.
-                            */}
 
-                            {/* Large Main Feature (First Item) */}
+                            {/* Featured Properties Grid */}
                             {properties[0] && (
                                 <div className="lg:col-span-2 group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all h-[400px] md:h-[500px]">
                                     <div className="absolute inset-0">
@@ -231,7 +213,7 @@ export default function Home() {
                                 </div>
                             )}
 
-                            {/* Two Stacked Items (Next 2) */}
+                            {/* Secondary Featured Items */}
                             <div className="flex flex-col gap-8 h-[400px] md:h-[500px]">
                                 {properties.slice(1, 3).map((property) => (
                                     <div key={property._id} className="flex-1 relative rounded-3xl overflow-hidden shadow-md hover:shadow-lg transition-all group">

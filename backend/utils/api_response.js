@@ -1,4 +1,4 @@
-// dreamdwell_backend/utils/api_response.js
+// backend/utils/api_response.js
 
 class ApiResponse {
     constructor(statusCode, data, message = "Success") {

@@ -1,4 +1,4 @@
-// dream dwell_backend/routes/authRoutes.js
+// backend/routes/authRoutes.js
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
@@ -22,18 +22,18 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1024 * 1024 * 1024 }, // 1GB limit is very large, consider reducing if not strictly needed
-   // fileFilter: (req, file, cb) => {
-        // Expanded filetypes to include heic and webp
-        // const filetypes = /jpeg|jpg|png|gif|heic|webp/; // Added heic and webp
+    // fileFilter: (req, file, cb) => {
+    // Expanded filetypes to include heic and webp
+    // const filetypes = /jpeg|jpg|png|gif|heic|webp/; // Added heic and webp
 
-        // const mimetype = filetypes.test(file.mimetype);
-        // const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // const mimetype = filetypes.test(file.mimetype);
+    // const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
-        // Diagnostic logs (keep these for debugging, remove in production if not needed)
-        // console.log('DEBUG (Backend): Received file.mimetype:', file.mimetype);
-        // console.log('DEBUG (Backend): Received file.originalname extension:', path.extname(file.originalname).toLowerCase());
-        // console.log('DEBUG (Backend): mimetype test result:', mimetype);
-        // console.log('DEBUG (Backend): extname test result:', extname);
+    // Diagnostic logs (keep these for debugging, remove in production if not needed)
+    // console.log('DEBUG (Backend): Received file.mimetype:', file.mimetype);
+    // console.log('DEBUG (Backend): Received file.originalname extension:', path.extname(file.originalname).toLowerCase());
+    // console.log('DEBUG (Backend): mimetype test result:', mimetype);
+    // console.log('DEBUG (Backend): extname test result:', extname);
 
     //     if (mimetype && extname) {
     //         return cb(null, true);

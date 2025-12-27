@@ -1,4 +1,4 @@
-// dreamdwell_backend/controllers/cartController.js
+// backend/controllers/cartController.js
 const Cart = require('../models/Cart'); // Assuming the model is named Cart.js
 const Property = require('../models/Property');
 const { asyncHandler } = require('../utils/asyncHandler'); // Assuming you have this utility
