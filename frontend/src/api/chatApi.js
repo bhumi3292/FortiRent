@@ -6,7 +6,12 @@ export const createOrGetChat = async (otherUserId, propertyId = null) => {
             otherUserId,
             propertyId,
         });
-        return response.data.data;
+        const chatData = response.data.data;
+        // Ensure messages is always an array to prevent "map is not a function" errors
+        if (chatData && chatData.messages === undefined) {
+            chatData.messages = [];
+        }
+        return chatData;
     } catch (error) {
         console.error("API error creating or getting chat:", error);
         throw new Error(error.response?.data?.message || "Failed to create or get chat.");
