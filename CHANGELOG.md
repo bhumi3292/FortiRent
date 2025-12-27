@@ -10,3 +10,8 @@ All notable changes to the **FortiRent** project will be documented in this file
 - Added password complexity enforcement (Uppsercase, lower, number, symbol, min 10 chars).
 - Added password history tracking (last 3 passwords cannot be reused).
 - Added password expiry policy (90 days).
+
+### Changed
+- Rebranded application from **DreamDwell** to **FortiRent**.
+- Renamed packages to `fortirent-backend` and `fortirent-frontend`.
+- Updated all API responses and Email templates to reflect new branding.
