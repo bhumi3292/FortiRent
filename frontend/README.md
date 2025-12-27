@@ -53,4 +53,20 @@
 1.  **Home Page**: Implements a "Friendly Hero" with soft gradients and an asymmetric featured grid.
 2.  **Auth Pages**: Clean, centered cards with clear role selection (Tenant/Landlord).
 3.  **Property Listing**: Masonry layout with a sticky top filter bar.
-4.  **Property Details**: Full-width hero media, tabbed content, and sticky action sidebar.
+5.  **Add Property Flow**: Multi-step wizard with map integration and media upload.
+
+---
+
+## 💻 Development Setup
+
+To start the frontend development server:
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+```
+
+Ensure the backend server is running on port 4000 for API requests to work correctly.
