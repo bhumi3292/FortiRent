@@ -38,7 +38,11 @@ exports.registerUser = async (req, res) => {
         return res.status(201).json({ success: true, message: "User registered successfully" });
     } catch (err) {
         console.error("Registration Error:", err);
-        // More specific error handling for database issues if needed
+        // Security: Explicitly handle validation errors (e.g. password complexity)
+        if (err.name === 'ValidationError') {
+            const messages = Object.values(err.errors).map(val => val.message);
+            return res.status(400).json({ success: false, message: messages.join(', ') });
+        }
         return res.status(500).json({ success: false, message: "Server error during registration." });
     }
 };
@@ -52,7 +56,7 @@ exports.loginUser = async (req, res) => {
     }
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).select('+password +passwordChangedAt'); // Select hidden fields
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
@@ -60,6 +64,18 @@ exports.loginUser = async (req, res) => {
         const passwordMatch = await user.comparePassword(password); // Assuming comparePassword method on User model
         if (!passwordMatch) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
+        }
+
+        // Security: Check for Password Expiry (90 days)
+        const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
+        const passwordAge = Date.now() - new Date(user.passwordChangedAt || user.createdAt).getTime();
+
+        if (passwordAge > ninetyDaysInMs) {
+            return res.status(403).json({
+                success: false,
+                code: "PASSWORD_EXPIRED",
+                message: "Your password has expired (90 days). Please reset your password to continue."
+            });
         }
 
         const payload = {
@@ -70,7 +86,7 @@ exports.loginUser = async (req, res) => {
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-        const { password: _, ...userWithoutPassword } = user.toObject();
+        const { password: _, passwordHistory: __, ...userWithoutPassword } = user.toObject();
 
         return res.status(200).json({
             success: true,
@@ -181,8 +197,9 @@ exports.resetPassword = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Passwords do not match.' });
     }
 
-    if (newPassword.length < 8) {
-        return res.status(400).json({ success: false, message: 'Password must be at least 8 characters.' });
+    // Security: Update min length basic check
+    if (newPassword.length < 10) {
+        return res.status(400).json({ success: false, message: 'Password must be at least 10 characters.' });
     }
 
     try {
@@ -205,6 +222,15 @@ exports.resetPassword = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid reset token. Please request a new one.' });
         }
 
+        // Security: Handle errors from model middleware (Complexity, Reuse)
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(val => val.message);
+            return res.status(400).json({ success: false, message: messages.join(', ') });
+        }
+        if (error.message.includes("Password cannot be")) {
+            return res.status(400).json({ success: false, message: error.message });
+        }
+
         console.error('Error in resetPassword:', error);
         return res.status(500).json({ success: false, message: 'Failed to reset password. Please try again later.' });
     }
@@ -225,24 +251,24 @@ exports.changePassword = async (req, res) => {
         return res.status(400).json({ success: false, message: "New password and confirm password do not match." });
     }
 
-    if (newPassword.length < 8) {
-        return res.status(400).json({ success: false, message: "New password must be at least 8 characters long." });
+    // Basic length check (regex check happens in model validation)
+    if (newPassword.length < 10) {
+        return res.status(400).json({ success: false, message: "New password must be at least 10 characters long." });
     }
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select('+password'); // Need password to compare
         if (!user) {
-            // This case should ideally not happen if authenticateUser works correctly
             return res.status(404).json({ success: false, message: "User not found." });
         }
 
         // Verify current password against the hashed password in DB
-        const isMatch = await user.comparePassword(currentPassword); // Assuming comparePassword method
+        const isMatch = await user.comparePassword(currentPassword);
         if (!isMatch) {
             return res.status(401).json({ success: false, message: "Incorrect current password." });
         }
 
-        // Update password (Mongoose pre-save hook should handle hashing the new password)
+        // Update password (Mongoose pre-save hook will: 1. Check reuse, 2. Hash, 3. Update history)
         user.password = newPassword;
         await user.save();
 
@@ -250,7 +276,16 @@ exports.changePassword = async (req, res) => {
 
     } catch (error) {
         console.error("Error in changePassword:", error);
-        // Specific error handling for database issues, validation, etc.
+
+        // Security: Handle errors from model middleware (Complexity, Reuse)
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(val => val.message);
+            return res.status(400).json({ success: false, message: messages.join(', ') });
+        }
+        if (error.message.includes("Password cannot be")) {
+            return res.status(400).json({ success: false, message: error.message });
+        }
+
         return res.status(500).json({ success: false, message: "Server error during password change." });
     }
 };
