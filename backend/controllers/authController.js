@@ -4,6 +4,14 @@ const jwt = require("jsonwebtoken");
 const { sendEmail } = require("../utils/sendEmail"); // Assuming this utility exists
 
 // Register User (existing)
+/**
+ * Register a new user.
+ * @route POST /api/auth/register
+ * @access Public
+ * @param {string} fullName - User's full name.
+ * @param {string} email - User's email address.
+ * @param {string} password - User's password (min 10 chars).
+ */
 exports.registerUser = async (req, res) => {
     const { fullName, email, phoneNumber, stakeholder, password, confirmPassword } = req.body;
 
